@@ -7,15 +7,15 @@
     <script src="js/chessboard-1.0.0.min.js"></script>
     <script src="js/chess.js"></script>
     <style>
-    .lock-screen {
-      height: 100%;
-      overflow: hidden;
-      width: 100%;
-      position: fixed;
+    html, body {
+    overflow: hidden;
     }
-    </style>
+    body {
+      position: relative;
+    }
+  </style>
   </head>
-  <body class="lock-screen">
+  <body>
     <div id="board" style="width: 600px"></div>
     <script src="js/chessai.js"></script>
   </body>
