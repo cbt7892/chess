@@ -1,12 +1,7 @@
 var board = null
 var game = new Chess()
 
-function noScroll() {
-  window.scrollTo(0, 0);
-}
-
-// add listener to disable scroll
-window.addEventListener('scroll', noScroll);
+document.addEventListener('touchmove', function() { e.preventDefault(); }, { passive:false });
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
