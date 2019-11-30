@@ -38,7 +38,7 @@ function getScore() {
 function makeGoodMove () {
   var possibleMoves = game.moves()
   var best = null;
-  var bestScore = -99999;
+  var bestScore = -100000;
 
   // game over
   if (possibleMoves.length === 0) {
