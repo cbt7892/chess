@@ -1,6 +1,9 @@
 var board = null
 var game = new Chess()
-document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
+document.body.addEventListener("touchmove", function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+}, false);
 
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
