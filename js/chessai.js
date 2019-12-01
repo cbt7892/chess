@@ -40,6 +40,9 @@ function minimax(depth, curGame, alpha, beta, black) {
     return getScore(curGame);
   }
   var possible = curGame.moves();
+  if (possible.length == 0) {
+    return getScore(curGame);
+  }
   if (black) {
     var best = -99999;
     for (var i = 0; i < possible.length; i++) {
@@ -56,7 +59,6 @@ function minimax(depth, curGame, alpha, beta, black) {
   else {
     var best = 99999;
     for (var i = 0; i < possible.length; i++) {
-      // console.log("Depth: " + depth + " Move: " + possible[i]);
       curGame.move(possible[i]);
       best = Math.min(best, minimax(depth - 1, curGame, alpha, beta, true));
       curGame.undo();
@@ -104,7 +106,7 @@ function onDrop (source, target) {
   // illegal move
   if (move === null) return 'snapback'
 
-  window.setTimeout(makeGoodMove(3), 250)
+  window.setTimeout(makeGoodMove(4), 250)
 }
 
 // update the board position after the piece snap
