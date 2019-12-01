@@ -14,10 +14,10 @@ function getScore(game1) {
   var score = 0;
   var values = {
     "p" : 100,
-    "n" : 350,
-    "b" : 350,
-    "r" : 525,
-    "q" : 1000,
+    "n" : 300,
+    "b" : 320,
+    "r" : 500,
+    "q" : 900,
     "k" : 10000
   };
   for (var i = 0; i < 8; i++) {
