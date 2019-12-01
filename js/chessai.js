@@ -9,8 +9,8 @@ function onDragStart (source, piece, position, orientation) {
   if (piece.search(/^b/) !== -1) return false
 }
 
-function getScore() {
-  var board = game.board();
+function getScore(game1) {
+  var board = game1.board();
   var score = 0;
   var values = {
     "p" : 100,
@@ -35,20 +35,54 @@ function getScore() {
   return score;
 }
 
-function makeGoodMove () {
+function minimax(depth, curGame, alpha, beta, black) {
+  if (depth == 0) {
+    return getScore(curGame);
+  }
+  var possible = curGame.moves();
+  if (black) {
+    var best = -99999;
+    for (var i = 0; i < possible.length; i++) {
+      curGame.move(possible[i]);
+      best = Math.max(best, minimax(depth - 1, curGame, alpha, beta, false));
+      curGame.undo();
+      alpha = Math.max(alpha, best);
+      if (beta <= alpha) {
+        return best;
+      }
+    }
+    return best;
+  }
+  else {
+    var best = 99999;
+    for (var i = 0; i < possible.length; i++) {
+      // console.log("Depth: " + depth + " Move: " + possible[i]);
+      curGame.move(possible[i]);
+      best = Math.min(best, minimax(depth - 1, curGame, alpha, beta, true));
+      curGame.undo();
+      beta = Math.min(beta, best);
+      if (beta <= alpha) {
+        return best;
+      }
+    }
+    return best;
+  }
+}
+
+function makeGoodMove (depth) {
   var possibleMoves = game.moves()
   var best = null;
-  var bestScore = -100000;
+  var bestScore = -99999;
 
   // game over
-  if (possibleMoves.length === 0) {
+  if (possibleMoves.length == 0) {
     return
   }
 
   for (var i = 0; i < possibleMoves.length; i++) {
     var possibleMove = possibleMoves[i];
     game.move(possibleMove);
-    var score = getScore();
+    var score = minimax(depth - 1, game, -99999, 99999, false);
     game.undo();
     if (score > bestScore) {
       best = possibleMove;
@@ -70,8 +104,7 @@ function onDrop (source, target) {
   // illegal move
   if (move === null) return 'snapback'
 
-  // make random legal move for black
-  window.setTimeout(makeGoodMove, 250)
+  window.setTimeout(makeGoodMove(3), 250)
 }
 
 // update the board position after the piece snap
