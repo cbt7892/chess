@@ -106,7 +106,7 @@ function onDrop (source, target) {
   // illegal move
   if (move === null) return 'snapback'
 
-  window.setTimeout(makeGoodMove(3), 250)
+  window.setTimeout(makeGoodMove(4), 250)
 }
 
 // update the board position after the piece snap
